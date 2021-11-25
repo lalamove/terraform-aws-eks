@@ -58,6 +58,12 @@ resource "aws_eks_cluster" "this" {
     aws_iam_role_policy_attachment.cluster_AmazonEKSVPCResourceControllerPolicy,
     aws_cloudwatch_log_group.this
   ]
+
+  lifecycle {
+    ignore_changes = [
+      vpc_config.0.subnet_ids,
+    ]
+  }
 }
 
 resource "aws_security_group" "cluster" {
